@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Job Search Field Guide</title>
+<meta name="description" content="A practical guide to running a job search: direction, finding roles, applying, people, interviews, and learning from the process.">
+<style>
+:root{
+  --ink:#1b1a18; --ink-2:#4a4640; --ink-3:#7a746b;
+  --paper:#fbfaf7; --card:#fff; --rule:#e6e1d8; --rule-2:#efebe3;
+  --accent:#5B6ABF; --max:748px;
+  --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Helvetica,Arial,sans-serif;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);
+  font-size:16.5px;line-height:1.68;-webkit-font-smoothing:antialiased}
+a{color:#3a5ab0;text-decoration:none;border-bottom:1px solid rgba(58,90,176,.26)}
+a:hover{border-bottom-color:#3a5ab0}
+
+/* top bar */
+.topbar{position:sticky;top:0;z-index:30;background:rgba(251,250,247,.93);
+  -webkit-backdrop-filter:saturate(1.7) blur(9px);backdrop-filter:saturate(1.7) blur(9px);
+  border-bottom:1px solid var(--rule)}
+.topbar-in{max-width:1160px;margin:0 auto;display:flex;align-items:center;gap:16px;
+  padding:0 24px;height:53px}
+.tb-brand{font-family:var(--serif);font-size:15.5px;letter-spacing:-.012em;white-space:nowrap;
+  color:var(--ink);border:0;flex:none}
+.tb-brand:hover{border:0;color:var(--ink)}
+.tb-nav{display:flex;gap:2px;min-width:0}
+.tb-item{position:relative;flex:none}
+.tb-link{display:flex;align-items:center;gap:6px;padding:7px 10px;border-radius:7px;border:0;
+  font-size:13.1px;font-weight:500;color:var(--ink-2);white-space:nowrap}
+.tb-link:hover{border:0}
+.tb-link .pn{font-family:var(--mono);font-size:10px;color:var(--ink-3)}
+.tb-link .car{width:0;height:0;margin-left:2px;border-left:3.5px solid transparent;
+  border-right:3.5px solid transparent;border-top:4px solid var(--ink-3);opacity:.7;
+  transition:transform .14s ease}
+.tb-item:hover .tb-link .car,.tb-item.open .tb-link .car{border-top-color:var(--accent);opacity:1}
+.tb-item.open .tb-link .car{transform:rotate(180deg)}
+.tb-item:hover .tb-link{background:color-mix(in srgb,var(--accent) 9%,transparent);color:var(--accent)}
+.tb-item:hover .tb-link .pn{color:var(--accent)}
+.tb-item.on .tb-link{color:var(--accent);font-weight:600;
+  background:color-mix(in srgb,var(--accent) 12%,transparent)}
+.tb-item.on .tb-link .pn{color:var(--accent)}
+.tb-drop{position:absolute;top:calc(100% + 4px);left:0;min-width:262px;background:#fff;
+  border:1px solid var(--rule);border-radius:11px;box-shadow:0 16px 36px -16px rgba(0,0,0,.24);
+  padding:6px;opacity:0;visibility:hidden;transform:translateY(-5px);
+  transition:opacity .14s ease,transform .14s ease,visibility .14s}
+.tb-item:hover .tb-drop,.tb-item:focus-within .tb-drop,.tb-item.open .tb-drop{
+  opacity:1;visibility:visible;transform:none}
+.tb-item:last-child .tb-drop{left:auto;right:0}
+.tb-drop a{display:block;padding:6px 10px;border-radius:7px;font-size:13.2px;
+  color:var(--ink-2);border:0;line-height:1.4}
+.tb-drop a:hover{background:color-mix(in srgb,var(--accent) 9%,transparent);color:var(--accent);border:0}
+.tb-drop a .n{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);margin-right:8px}
+
+main{max-width:800px;margin:0 auto;padding:0 26px 110px}
+
+#filter{margin-left:auto;flex:none;width:150px;padding:7px 11px;border:1px solid var(--rule);
+  border-radius:7px;background:#fff;font-size:13px;font-family:inherit;color:var(--ink);
+  transition:width .16s ease}
+#filter:focus{outline:none;border-color:#5B6ABF;box-shadow:0 0 0 3px rgba(91,106,191,.11);width:212px}
+
+header.hero{padding:52px 0 4px;max-width:var(--max)}
+.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.16em;color:var(--ink-3);margin-bottom:15px}
+h1{font-family:var(--serif);font-size:45px;line-height:1.07;letter-spacing:-.022em;margin:0 0 22px;max-width:15ch}
+.intro{max-width:var(--max);font-size:17.6px;line-height:1.68;color:var(--ink-2);
+  padding-bottom:30px;border-bottom:1px solid var(--rule);margin-bottom:34px}
+.intro p{margin:0 0 15px}
+.intro p:last-child{margin-bottom:0}
+.intro strong{color:var(--ink)}
+
+.phases{display:grid;grid-template-columns:repeat(auto-fit,minmax(238px,1fr));gap:15px;margin:0 0 46px}
+.phase-card{background:var(--card);border:1px solid var(--rule);border-top:3px solid var(--accent);
+  border-radius:9px;padding:17px 17px 13px}
+.pc-num{font-family:var(--mono);font-size:10.5px;color:var(--accent);font-weight:700;letter-spacing:.08em}
+.phase-card h3{font-family:var(--serif);font-size:18.5px;margin:4px 0 6px;letter-spacing:-.01em}
+.phase-card p{font-size:13.3px;color:var(--ink-2);margin:0 0 10px;line-height:1.5}
+.phase-card ul{list-style:none;margin:0;padding:9px 0 0;border-top:1px solid var(--rule-2)}
+.phase-card li a{display:block;font-size:13px;padding:2.5px 0;color:var(--ink-2);border:0}
+.phase-card li a:hover{color:var(--accent)}
+.phase-card li .n{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);margin-right:6px}
+
+.panel{max-width:var(--max);background:#fff;border:1px solid var(--rule);border-radius:10px;
+  padding:22px 24px;margin-bottom:22px}
+.panel h3{font-family:var(--serif);font-size:20px;margin:0 0 10px;letter-spacing:-.01em}
+.panel p{margin:0 0 11px;font-size:15.4px;color:var(--ink-2)}
+.panel p:last-child{margin-bottom:0}
+.panel ul{margin:0;padding-left:19px;font-size:15.4px;color:var(--ink-2)}
+.panel li{margin-bottom:6px}
+.panel.tool{background:#f3f2ee;border-color:#e0dcd2}
+.panel.tool h3::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;
+  background:var(--accent);margin-right:9px;vertical-align:2px}
+.dl{display:inline-block;margin-top:6px;padding:9px 15px;border-radius:8px;background:var(--accent);
+  color:#fff;font-size:14.5px;font-weight:600;border:0}
+.dl:hover{background:#48569e;border:0;color:#fff}
+.beta{font-size:14.2px;color:var(--ink-3);border-top:1px solid var(--rule);padding-top:14px;margin-top:18px}
+.beta strong{color:var(--ink-2)}
+
+.module{max-width:var(--max);padding:40px 0 34px;border-top:1px solid var(--rule)}
+.mod-head{display:flex;gap:14px;align-items:flex-start;margin-bottom:13px}
+.mod-num{font-family:var(--mono);font-size:12.5px;font-weight:700;color:var(--accent);
+  background:color-mix(in srgb,var(--accent) 10%,transparent);
+  border:1px solid color-mix(in srgb,var(--accent) 26%,transparent);
+  padding:4px 8px;border-radius:6px;flex:none;margin-top:5px}
+.mod-phase{font-size:10.5px;text-transform:uppercase;letter-spacing:.13em;color:var(--accent);font-weight:700;margin-bottom:2px}
+.module h2{font-family:var(--serif);font-size:28px;line-height:1.2;margin:0;letter-spacing:-.018em}
+.lede{font-size:17.2px;line-height:1.56;margin:0 0 22px;padding-left:16px;
+  border-left:3px solid var(--accent);font-family:var(--serif);font-style:italic}
+.block{margin-bottom:24px}
+.block h4{font-size:11px;text-transform:uppercase;letter-spacing:.13em;color:var(--ink-3);margin:0 0 11px;font-weight:700}
+.block p{margin:0 0 12px}
+.block ul{margin:0;padding-left:21px}
+.block li{margin-bottom:9px}
+
+/* why panel — tinted with the phase colour */
+.why{background:color-mix(in srgb,var(--accent) 4.5%,#fff);
+  border:1px solid color-mix(in srgb,var(--accent) 20%,transparent);
+  border-left:4px solid var(--accent);
+  border-radius:10px;padding:17px 20px 6px;position:relative}
+.why-tag{display:block;font-size:10.5px;text-transform:uppercase;letter-spacing:.13em;
+  font-weight:700;color:var(--accent);margin-bottom:9px}
+.why p{color:var(--ink-2);margin-bottom:12px}
+.why strong{color:var(--ink)}
+
+/* numbered steps, so a long list reads as steps rather than a wall */
+.block ol{list-style:none;margin:0;padding-left:0;counter-reset:step}
+.block ol > li{counter-increment:step;position:relative;padding-left:40px;margin-bottom:15px}
+.block ol > li::before{content:counter(step);position:absolute;left:0;top:2px;
+  width:26px;height:26px;border-radius:8px;
+  background:color-mix(in srgb,var(--accent) 11%,transparent);
+  color:var(--accent);font-family:var(--mono);font-size:12px;font-weight:700;
+  display:flex;align-items:center;justify-content:center}
+.block ol > li > ul{margin-top:7px;padding-left:18px}
+.block ol > li > ul li{margin-bottom:5px;font-size:15.6px}
+
+.checklist{list-style:none;padding:0;margin:0}
+.checklist li{margin-bottom:5px}
+.checklist label{display:flex;gap:9px;align-items:flex-start;cursor:pointer;font-size:15.4px;color:var(--ink-2)}
+.checklist input{margin:5px 0 0;accent-color:var(--accent);flex:none;width:15px;height:15px}
+.checklist input:checked+span{color:var(--ink-3);text-decoration:line-through}
+
+.traps{background:#fdf6f2;border:1px solid #f0ddd2;border-radius:9px;padding:16px 19px}
+.traps h4{color:#a05a34}
+.traps p{font-size:15.3px;color:#5c4636;margin-bottom:8px}
+.traps p:last-child{margin-bottom:0}
+.mod-foot{font-size:12.5px}
+.mod-foot a{color:var(--ink-3);border:0}
+.mod-foot a:hover{color:var(--accent)}
+
+footer{max-width:var(--max);margin-top:44px;padding-top:22px;border-top:1px solid var(--rule);
+  font-size:13.4px;color:var(--ink-3)}
+footer p{margin:0 0 8px}
+.hidden{display:none !important}
+#empty{max-width:var(--max);padding:40px 0;color:var(--ink-3);font-size:15px}
+
+@media (max-width:1080px){
+  .topbar-in{flex-wrap:wrap;height:auto;padding:9px 20px;gap:8px}
+  .tb-brand{order:1}
+  #filter{order:2;margin-left:auto;width:190px}
+  #filter:focus{width:190px}
+  .tb-nav{order:3;width:100%}
+}
+/* Below this the phase strip has to scroll, which clips an absolutely
+   positioned menu, so it becomes a fixed panel under the bar instead. */
+@media (max-width:760px){
+  .topbar-in{padding:9px 14px}
+  .tb-brand{display:none}
+  #filter{margin-left:0;width:100%}
+  #filter:focus{width:100%}
+  .tb-nav{overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none}
+  .tb-nav::-webkit-scrollbar{display:none}
+  .tb-drop{position:fixed;top:var(--bar,100px);left:12px;right:12px;min-width:0;
+    max-height:64vh;overflow-y:auto}
+  .tb-item:last-child .tb-drop{left:12px;right:12px}
+}
+@media (max-width:900px){
+  main{padding:0 22px 80px}
+  h1{font-size:32px}
+  header.hero{padding-top:34px}
+  .intro{font-size:16.5px}
+  .module h2{font-size:23px}
+  .lede{font-size:16.3px}
+}
+@media print{
+  #filter,.mod-foot,.panel.tool,.topbar{display:none}
+  main{padding:0;max-width:none}
+  .module{page-break-inside:avoid;border-top:1px solid #ccc}
+  .why{background:#fff;border:1px solid #ddd}
+  .block ol>li::before{background:#eee;color:#333}
+  body{font-size:11pt;background:#fff}
+  a{color:#000;border:0}
+}
+</style>
+</head>
+<body id="top">
+<nav class="topbar">
+  <div class="topbar-in">
+    <a class="tb-brand" href="#top">Field&nbsp;Guide</a>
+    <div class="tb-nav"><div class="tb-item" data-phase="Before you start" style="--accent:#5B6ABF"><a class="tb-link" href="#staying-whole"><span class="pn">01</span>Before you start<span class="car" aria-hidden="true"></span></a><div class="tb-drop"><a href="#staying-whole"><span class="n">1.1</span>Staying in one piece</a><a href="#brief"><span class="n">1.2</span>Decide what you&#x27;re looking for</a><a href="#master-resume"><span class="n">1.3</span>Build one master resume</a><a href="#findable"><span class="n">1.4</span>Make yourself findable</a></div></div><div class="tb-item" data-phase="Finding roles" style="--accent:#3E8E7E"><a class="tb-link" href="#where-to-look"><span class="pn">02</span>Finding roles<span class="car" aria-hidden="true"></span></a><div class="tb-drop"><a href="#where-to-look"><span class="n">2.1</span>Where to look</a><a href="#worth-it"><span class="n">2.2</span>Decide quickly whether it&#x27;s worth it</a><a href="#tracker"><span class="n">2.3</span>Keep track</a></div></div><div class="tb-item" data-phase="Applying" style="--accent:#B4713D"><a class="tb-link" href="#read-posting"><span class="pn">03</span>Applying<span class="car" aria-hidden="true"></span></a><div class="tb-drop"><a href="#read-posting"><span class="n">3.1</span>Read the posting properly</a><a href="#tailoring"><span class="n">3.2</span>Tailor the resume</a><a href="#message"><span class="n">3.3</span>The application message</a></div></div><div class="tb-item" data-phase="People" style="--accent:#A05070"><a class="tb-link" href="#weak-ties"><span class="pn">04</span>People<span class="car" aria-hidden="true"></span></a><div class="tb-drop"><a href="#weak-ties"><span class="n">4.1</span>The people who help are the ones you barely know</a><a href="#informational"><span class="n">4.2</span>Informational interviews</a><a href="#outreach"><span class="n">4.3</span>Recruiters, hiring managers and referrals</a></div></div><div class="tb-item" data-phase="Interviews" style="--accent:#4A7BA7"><a class="tb-link" href="#prep"><span class="pn">05</span>Interviews<span class="car" aria-hidden="true"></span></a><div class="tb-drop"><a href="#prep"><span class="n">5.1</span>Preparing</a><a href="#stories"><span class="n">5.2</span>Your stories, and the STAR structure</a><a href="#case-study"><span class="n">5.3</span>Case studies and presentations</a><a href="#on-the-day"><span class="n">5.4</span>On the day</a><a href="#money"><span class="n">5.5</span>Money and scope</a></div></div><div class="tb-item" data-phase="Learning" style="--accent:#6B7A5A"><a class="tb-link" href="#debrief"><span class="pn">06</span>Learning<span class="car" aria-hidden="true"></span></a><div class="tb-drop"><a href="#debrief"><span class="n">6.1</span>Write it down afterwards</a><a href="#patterns"><span class="n">6.2</span>Find your own patterns</a><a href="#building"><span class="n">6.3</span>Keep building something</a></div></div></div>
+    <input id="filter" type="search" placeholder="Search…" autocomplete="off">
+  </div>
+</nav>
+
+<main>
+<header class="hero">
+  <div class="eyebrow">Twenty-one modules · six phases</div>
+  <h1>The Job Search Field Guide</h1>
+</header>
+
+<div class="intro">
+<p>Work takes up something in the order of eighty thousand hours of a life. A job search is one of the few moments when you get any real say over what those hours are spent on, and it usually turns up at the worst time for thinking clearly: when you're tired of where you are, or you've just been let go, or something has shifted and you can't yet put it into words.</p>
+<p>The difficult part of that is working out what you actually want, what you're prepared to trade for it, and what you'd regret. <strong>Nobody can hand you that.</strong></p>
+<p>What follows is the rest of it. The mechanics of a search are surprisingly large: working out where to look, reading postings properly, rewriting a resume for the fifteenth time, finding the right person to message and then actually messaging them, preparing for interviews, holding your nerve on money, and doing all of it again next week when nobody has replied. Left unstructured, that machinery absorbs almost all your attention, and it absorbs it at precisely the moment you can least afford to hand attention over.</p>
+<p><strong>Having a method frees up the part of you that should be thinking about the bigger question.</strong> If you know what you do on a Tuesday evening, the search stops being a source of low-grade dread and becomes a process you're running.</p>
+<p>There's a second reason to work this way. A search generates a lot of information about you, and most people throw all of it away. Twenty applications, six conversations and three interviews will tell you more about what you want and how you come across than any amount of reflection in the abstract, but only if you write some of it down.</p>
+</div>
+
+<div class="panel">
+  <h3>How to use it</h3>
+  <p>The phases run roughly in order, though a real search overlaps them within a few weeks. Read the first phase before anything else. Everything downstream leans on it, and the first module in particular is much easier to act on now than in month three.</p>
+  <ul>
+    <li>Each module stands on its own, so jump to what you need. There's a search box in the sidebar.</li>
+    <li>The checkboxes tick in your browser and aren't saved or sent anywhere. Print the page if you want a copy you can keep.</li>
+    <li>"Where this goes wrong" is usually the most useful part. Read it before you start rather than afterwards.</li>
+    <li>The advice here is a starting point. What you learn from your own processes will be more specific and more useful, and the Learning section is how you get at it.</li>
+  </ul>
+</div>
+
+<div class="panel tool">
+  <h3>The companion skill</h3>
+  <p>Most of this involves drafting, comparing and rehearsing, which is work an AI assistant is genuinely good at when it's given proper instructions. There's a skill you can install in Claude that runs the whole method with you rather than answering one question at a time.</p>
+  <p>It interviews you instead of writing for you, works from your own master resume, and won't invent an achievement or a number you didn't give it, on the grounds that anything you can't defend in an interview is worse than useless. It knows every step in this guide and picks up the right one from what you tell it.</p>
+  <p><strong>To install:</strong> download the file below, then in Claude go to Settings, Capabilities, Skills, and upload it. After that it activates on its own whenever you mention a posting, a resume or an interview.</p>
+  <p><a class="dl" href="job-search-copilot.skill" download>Download the skill</a></p>
+  <p class="beta"><strong>This one is still in beta.</strong> It has had far less use than the rest of the method, so expect rough edges. If something doesn't work, or you can see how it could work better, do tell me.</p>
+</div>
+
+
+<section class="module" id="staying-whole" style="--accent:#5B6ABF" data-phase="Before you start" data-search="staying in one piece this comes first because it&#x27;s far easier to set up before a search wears you down than to introduce three months in, when you most need it and least feel like it. before you start">
+  <div class="mod-head">
+    <div class="mod-num">1.1</div>
+    <div>
+      <div class="mod-phase">Before you start</div>
+      <h2>Staying in one piece</h2>
+    </div>
+  </div>
+  <p class="lede">This comes first because it&#x27;s far easier to set up before a search wears you down than to introduce three months in, when you most need it and least feel like it.</p>
+  <div class="block why"><span class="why-tag">Why it matters</span><p>Job searching asks you to keep working at something where most of your effort produces no response and almost every decision is made by someone else. <strong>It runs for months and it is done, usually, in private.</strong> Setting up how you'll handle that is as much a part of the method as anything about resumes.</p>
+<p>Some numbers help, mainly because they take the outcome off your shoulders. Senior roles routinely draw several hundred applicants. Searches at that level often run three to six months, sometimes longer, and <strong>that's an ordinary result rather than a sign that something is wrong with you</strong>.</p>
+<p>A large review of the research found two things worth knowing. Effort predicts how many interviews you get, but it doesn't predict whether you end up somewhere good; <strong>the quality of how you search does</strong>. And the longer a search runs, the more motivation depletes under repeated rejection, which reduces both effort and results. <strong>The implication isn't to push harder when it drags.</strong> It's to change something, and to look after the person doing the searching.</p>
+<p>The harder part is what a long search does to your sense of yourself. Rejections arrive without explanation, or don't arrive at all. Work that took you a weekend disappears into a system that never replies. If you're out of work, financial pressure sits underneath all of it, and the search stops feeling like a project and starts feeling like a verdict handed down weekly. Almost everyone who has done this for more than two months has felt some version of that, and the fact that it's common doesn't make it small.</p></div>
+  <div class="block"><h4>How to do it</h4><ol>
+<li><strong>Set weekly targets, not daily ones.</strong> Three or four proper applications, five to eight conversations, one sweep, one block on whatever you're building, one review. Weekly targets survive a bad day. Daily ones turn one bad day into a failure.</li>
+<li><strong>Batch by activity.</strong> Searching in one block, tailoring in another, messages in another. Constantly switching between them is what makes it feel like it never stops.</li>
+<li><strong>Give it fixed hours with a real end.</strong> Checking your email at eleven at night changes nothing and costs you the sleep you need for the interviews.</li>
+<li><strong>Take breaks often rather than long.</strong> How frequently you stop matters more than how long you stop for.</li>
+<li><strong>Separate the outcome from the judgement.</strong> A rejection at screening is information about fit, timing and how many other people applied. Very little of it is information about you. That's much easier to write than to feel, which is why it's worth saying out loud to someone regularly.</li>
+<li><strong>Tell people you trust what's happening.</strong> Searches are usually conducted in secret, which means the hardest part of your year is invisible to everyone around you. Two or three people who know, and who ask, changes the experience considerably.</li>
+<li><strong>Keep one thing in your week that has nothing to do with it</strong> and doesn't get cancelled when you're busy or discouraged. Exercise, a class, a standing dinner. It's the thing that reminds you the search isn't your whole life.</li>
+<li><strong>If you're not working, plan the money deliberately.</strong> Knowing what your runway is, rather than sensing it, turns a constant background fear into a date. That's much easier to think next to.</li>
+<li><strong>Reassess when it stalls rather than intensifying.</strong> Two months of no responses is a signal to change your targeting, your materials or your channels. It isn't a signal to send more of the same, and it isn't a signal about your worth.</li>
+<li><strong>Know your own warning signs.</strong> Dread before opening the tracker. Applications sent without reading the posting. Sleep going. Withdrawing from people. When these turn up, a deliberate week off beats a forced month off, and the roles will still be there.</li>
+</ol></div>
+  <div class="block"><h4>Done when</h4><ul class="checklist"><li><label><input type="checkbox"><span>Weekly targets rather than daily quotas</span></label></li><li><label><input type="checkbox"><span>Activities batched, with a real finishing time</span></label></li><li><label><input type="checkbox"><span>Two or three people who know what you&#x27;re going through</span></label></li><li><label><input type="checkbox"><span>One weekly commitment unrelated to the search</span></label></li><li><label><input type="checkbox"><span>Runway understood as a date, not a feeling</span></label></li><li><label><input type="checkbox"><span>Warning signs named in advance</span></label></li></ul></div>
+  <div class="block traps"><h4>Where this goes wrong</h4><p><strong>Treating it as a full-time job.</strong> It produces volume, poor quality and exhaustion, and the research suggests volume isn't what gets you somewhere good anyway.</p>
+<p><strong>Reading rejection as a verdict on you.</strong> In a market this crowded it's mostly noise about you and mostly signal about fit and timing.</p>
+<p><strong>Going it entirely alone.</strong> If this is affecting your sleep, your mood or your relationships for more than a couple of weeks, that's worth talking to someone about. A job search is a stressful life event and it's reasonable to treat it as one.</p></div>
+  <div class="mod-foot"><a href="#top">Back to top</a></div>
+</section>
+<section class="module" id="brief" style="--accent:#5B6ABF" data-phase="Before you start" data-search="decide what you&#x27;re looking for one page, written before you look at a single job posting. everything after this either follows from it or happens by accident. before you start">
+  <div class="mod-head">
+    <div class="mod-num">1.2</div>
+    <div>
+      <div class="mod-phase">Before you start</div>
+      <h2>Decide what you&#x27;re looking for</h2>
+    </div>
+  </div>
+  <p class="lede">One page, written before you look at a single job posting. Everything after this either follows from it or happens by accident.</p>
+  <div class="block why"><span class="why-tag">Why it matters</span><p>Searches tend to start reactively. A posting appears, it looks plausible, an application goes out. Three months later there are forty applications, no pattern in them, and <strong>no way to tell whether the market is bad or the strategy is</strong>.</p>
+<p>Writing this down takes an hour and <strong>gives you something to check every posting against in about ten seconds</strong>. Revisit it monthly. What you change tells you a lot.</p></div>
+  <div class="block"><h4>How to do it</h4><ol>
+<li><strong>Name three to five job titles</strong> you're competitive for right now, based on what you've been paid to do rather than what you'd enjoy. Add a second tier of adjacent roles you'd take, and a third of genuine stretches you'll apply to selectively.</li>
+<li><strong>List the industries you want, in order.</strong> Then, separately and honestly, the ones you're open to because that's where the volume is. Both lists are legitimate. Keeping them separate stops you drifting into the second while believing you're pursuing the first.</li>
+<li><strong>Write what you're ruling out</strong>, specifically enough that it can actually disqualify a real posting. "Bad culture" never fires. "No ownership of what I design" does. Think about what made previous roles wrong and turn those into criteria.</li>
+<li><strong>Settle three numbers:</strong> what you're targeting, what you'd be delighted by, and the lowest you'd accept for something exceptional. Deciding this calmly now is much easier than deciding it live in a recruiter call.</li>
+<li><strong>Note location and working pattern</strong>, including anything on a longer horizon that should shape which employers you favour.</li>
+<li><strong>List four or five things a role has to give you.</strong> These become your interview questions and, later, how you compare offers.</li>
+</ol></div>
+  <div class="block"><h4>Done when</h4><ul class="checklist"><li><label><input type="checkbox"><span>Titles that actually appear in postings, not descriptions of what you like doing</span></label></li><li><label><input type="checkbox"><span>Two industry lists, with the pragmatic one honestly labelled</span></label></li><li><label><input type="checkbox"><span>A ruling-out list specific enough to disqualify something real</span></label></li><li><label><input type="checkbox"><span>Your salary floor written down before any recruiter call</span></label></li><li><label><input type="checkbox"><span>Four or five things a role must give you</span></label></li></ul></div>
+  <div class="block traps"><h4>Where this goes wrong</h4><p><strong>Writing a wish list.</strong> If every line is aspirational, nothing filters. This document has to be capable of saying no.</p>
+<p><strong>Never opening it again.</strong> A brief written once and ignored is worse than none, because it gives you the feeling of having a strategy.</p></div>
+  <div class="mod-foot"><a href="#top">Back to top</a></div>
+</section>
+<section class="module" id="master-resume" style="--accent:#5B6ABF" data-phase="Before you start" data-search="build one master resume a long, private document holding everything you&#x27;ve ever done. you never send it. you cut every application resume out of it, which is what makes tailoring fast enough to sustain. before you start">
+  <div class="mod-head">
+    <div class="mod-num">1.3</div>
+    <div>
+      <div class="mod-phase">Before you start</div>
+      <h2>Build one master resume</h2>
+    </div>
+  </div>
+  <p class="lede">A long, private document holding everything you&#x27;ve ever done. You never send it. You cut every application resume out of it, which is what makes tailoring fast enough to sustain.</p>
+  <div class="block why"><span class="why-tag">Why it matters</span><p>Most people write resume content from scratch for every application, <strong>which is why applying is exhausting</strong> and why the fifteenth application is so much worse than the first.</p>
+<p><strong>Three jobs are usually done at once and shouldn't be.</strong> Getting it all down. Choosing what matters for a particular role. Polishing what you chose. The master resume is the first of those, done once. It runs three or four pages and that's correct, because <strong>nobody outside your own filing system will ever read it</strong>.</p></div>
+  <div class="block"><h4>How to do it</h4><ol>
+<li><strong>Facts first.</strong> Every organisation, title, and start and end date. Write them down once and stop hunting for them.</li>
+<li><strong>Aim for ten to fifteen entries per recent role.</strong> Don't edit while you write. If you stop to polish, you'll stall at the second job.</li>
+<li><strong>Write achievements, not duties.</strong> "Responsible for onboarding" describes a job description. "Rebuilt onboarding for 200 new starters a year and cut time-to-productivity from ten weeks to six" describes you. If a line could appear on the resume of anyone who held that title, it isn't doing any work.</li>
+<li><strong>Get the numbers down while you still remember them.</strong> Scale, before and after, time or money saved. Where there's no number, write the outcome and who noticed. Never make one up.</li>
+<li><strong>Jog your memory</strong> by reading job descriptions for roles you already held and asking "did I do that?", and by looking at published resume examples for your titles. Both are much easier than staring at a blank page.</li>
+<li><strong>Dump every skill, tool, language and certification.</strong> You'll switch these on and off per application.</li>
+<li><strong>Keep the formatting plain.</strong> A simple document, reverse chronological, no columns, no graphics, no photo. Applicant tracking systems handle ordinary PDFs and Word files fine; two-column layouts and images are where they struggle. Design work has almost no effect on whether you get an interview, and can quietly cost you one.</li>
+<li><strong>Add to it the week something happens</strong>, not the month you start looking.</li>
+</ol></div>
+  <div class="block"><h4>Done when</h4><ul class="checklist"><li><label><input type="checkbox"><span>Every role has dates you never have to look up again</span></label></li><li><label><input type="checkbox"><span>Ten to fifteen entries for each recent role</span></label></li><li><label><input type="checkbox"><span>Achievements rather than responsibilities</span></label></li><li><label><input type="checkbox"><span>Numbers where they exist, nothing invented</span></label></li><li><label><input type="checkbox"><span>A full list of skills and tools to select from</span></label></li><li><label><input type="checkbox"><span>Plain formatting, single column, parsable</span></label></li></ul></div>
+  <div class="block traps"><h4>Where this goes wrong</h4><p><strong>Editing while writing.</strong> Get it all down badly first. Editing is a separate afternoon.</p>
+<p><strong>Letting an AI generate the content.</strong> Anything you can't defend under a follow-up question is a liability, and follow-up questions are what interviews are.</p></div>
+  <div class="mod-foot"><a href="#top">Back to top</a></div>
+</section>
+<section class="module" id="findable" style="--accent:#5B6ABF" data-phase="Before you start" data-search="make yourself findable your public profile is either working while you sleep or it isn&#x27;t. most of what helps sits in settings recruiters see and colleagues don&#x27;t. before you start">
+  <div class="mod-head">
+    <div class="mod-num">1.4</div>
+    <div>
+      <div class="mod-phase">Before you start</div>
+      <h2>Make yourself findable</h2>
+    </div>
+  </div>
+  <p class="lede">Your public profile is either working while you sleep or it isn&#x27;t. Most of what helps sits in settings recruiters see and colleagues don&#x27;t.</p>
+  <div class="block why"><span class="why-tag">Why it matters</span><p>Two things decide whether recruiters contact you: whether you turn up in their searches, and whether your first few lines make them click. <strong>Both are closer to a keyword problem than a writing problem.</strong></p>
+<p>If you're currently employed, sort every change into what your network can see and what it can't, then <strong>start with the second group</strong>.</p></div>
+  <div class="block"><h4>How to do it</h4><ol>
+<li><strong>Turn on recruiter-facing availability settings.</strong> On LinkedIn, "open to work" set to recruiters only stays hidden from your network and from your own employer's recruiters. Fill in target titles, locations, start date and employment type while you're there.</li>
+<li><strong>Fix your skills list.</strong> Skills feed search ranking and are close to invisible socially. Put the three that match your target roles at the top and add every related term you see in the postings you want.</li>
+<li><strong>Lead your headline with your title.</strong> Someone scanning search results wants to confirm what kind of candidate you are before they read anything clever. Avoid "seeking opportunities" and "pivoting"; both raise questions before you've said anything.</li>
+<li><strong>Load the first three lines of your summary.</strong> Seniority, scale, and one result. That's all that shows before the fold.</li>
+<li><strong>Be realistic about a portfolio.</strong> It rarely helps at the screening stage, because links aren't rendered by applicant systems and screeners spend seconds. It earns its keep afterwards: when someone looks you up, as something to walk through in an interview, and in direct outreach where you set the context.</li>
+<li><strong>Line up two or three references early</strong>, while relationships are warm and nobody is under time pressure.</li>
+</ol></div>
+  <div class="block"><h4>Done when</h4><ul class="checklist"><li><label><input type="checkbox"><span>Recruiter-facing availability on, with target titles filled in</span></label></li><li><label><input type="checkbox"><span>Top three skills match your target roles</span></label></li><li><label><input type="checkbox"><span>Headline leads with a title</span></label></li><li><label><input type="checkbox"><span>First three summary lines carry seniority, scale, one result</span></label></li><li><label><input type="checkbox"><span>References approached before you need them</span></label></li></ul></div>
+  <div class="block traps"><h4>Where this goes wrong</h4><p><strong>Polishing your profile instead of applying.</strong> It feels productive and produces very little. Give it an afternoon and stop.</p></div>
+  <div class="mod-foot"><a href="#top">Back to top</a></div>
+</section>
+<section class="module" id="where-to-look" style="--accent:#3E8E7E" data-phase="Finding roles" data-search="where to look job boards give you volume. company career pages give you roles that never reach the boards, or reach them late. finding roles">
+  <div class="mod-head">
+    <div class="mod-num">2.1</div>
+    <div>
+      <div class="mod-phase">Finding roles</div>
+      <h2>Where to look</h2>
+    </div>
+  </div>
+  <p class="lede">Job boards give you volume. Company career pages give you roles that never reach the boards, or reach them late.</p>
+  <div class="block why"><span class="why-tag">Why it matters</span><p>Plenty of roles at good employers surface on the employer's own site first, and get mistagged or buried on aggregators. <strong>Running only one channel narrows your search without you noticing.</strong></p>
+<p>Timing matters too. A posting that has been open for six weeks has less energy behind it than one posted on Tuesday. Where something is clearly a fit, <strong>applying quickly beats another evening of polishing</strong>.</p></div>
+  <div class="block"><h4>How to do it</h4><ol>
+<li><strong>Collect the vocabulary before you search.</strong> The same job carries wildly different titles across organisations. Write down every variant you see on roles you'd take, plus the method words that show up in the postings you like. Search on the set, not on one title.</li>
+<li><strong>Set standing alerts</strong> on two or three job boards using that vocabulary, filtered by location and recency. Read them in one batch on a fixed day rather than checking constantly.</li>
+<li><strong>Build a list of twenty to thirty employers you actually want</strong>, each with a direct link to their careers search. It takes an afternoon once, then twenty minutes a week to sweep.</li>
+<li><strong>Sweep weekly.</strong> Career pages don't change fast enough to justify daily checking, and daily checking wears you down.</li>
+<li><strong>Remember the third channel.</strong> Roles reach people through conversations before they reach a board. That's the People section.</li>
+</ol></div>
+  <div class="block"><h4>Done when</h4><ul class="checklist"><li><label><input type="checkbox"><span>A vocabulary list, not a single job title</span></label></li><li><label><input type="checkbox"><span>Alerts on two or three boards, reviewed weekly in one sitting</span></label></li><li><label><input type="checkbox"><span>Twenty to thirty target employers with direct career-page links</span></label></li><li><label><input type="checkbox"><span>A fixed slot in the week for the sweep</span></label></li></ul></div>
+  <div class="block traps"><h4>Where this goes wrong</h4><p><strong>Searching one job title.</strong> You'll miss most of what's out there.</p>
+<p><strong>Checking every day.</strong> It costs energy you need elsewhere and surfaces almost nothing new.</p></div>
+  <div class="mod-foot"><a href="#top">Back to top</a></div>
+</section>
+<section class="module" id="worth-it" style="--accent:#3E8E7E" data-phase="Finding roles" data-search="decide quickly whether it&#x27;s worth it two minutes per posting, before you write anything. the point is to protect your good hours for your good chances. finding roles">
+  <div class="mod-head">
+    <div class="mod-num">2.2</div>
+    <div>
+      <div class="mod-phase">Finding roles</div>
+      <h2>Decide quickly whether it&#x27;s worth it</h2>
+    </div>
+  </div>
+  <p class="lede">Two minutes per posting, before you write anything. The point is to protect your good hours for your good chances.</p>
+  <div class="block why"><span class="why-tag">Why it matters</span><p>Senior roles routinely draw several hundred applicants. <strong>A weak application costs you the same evening as a strong one</strong>, so the main thing to get right is which postings you spend evenings on.</p></div>
+  <div class="block"><h4>How to do it</h4><ol>
+<li><strong>Read the requirements and ask honestly how much of it you can claim.</strong> The first three or four listed carry most of the weight; the rest is often a wish list. A reasonable rule of thumb is that you want most of the list overall and nearly all of the top few. If something central is missing, this probably isn't your posting.</li>
+<li><strong>Ask whether the actual work appeals</strong>, separately from whether you'd get it. Postings taken out of anxiety are how people end up somewhere worse than where they started.</li>
+<li><strong>Check it against your brief</strong> on industry, salary and location.</li>
+<li><strong>Give it a rating you'll actually use.</strong> Three tiers is enough: worth a real effort, worth applying if there's time, not worth it. Anything more elaborate turns into admin.</li>
+<li><strong>Write down the ones you skip.</strong> A month of skips is useful evidence about whether your targeting or the market is the problem.</li>
+</ol></div>
+  <div class="block"><h4>Done when</h4><ul class="checklist"><li><label><input type="checkbox"><span>Every posting rated before any writing starts</span></label></li><li><label><input type="checkbox"><span>A tier you don&#x27;t apply to, and you hold the line on it</span></label></li><li><label><input type="checkbox"><span>Skipped roles recorded rather than silently dropped</span></label></li></ul></div>
+  <div class="block traps"><h4>Where this goes wrong</h4><p><strong>Rating generously because you want it to fit.</strong> The rating is only useful if it can come out low.</p>
+<p><strong>Skipping this for roles you're excited about.</strong> Those are the ones where enthusiasm hides a missing requirement.</p></div>
+  <div class="mod-foot"><a href="#top">Back to top</a></div>
+</section>
+<section class="module" id="tracker" style="--accent:#3E8E7E" data-phase="Finding roles" data-search="keep track a spreadsheet is enough. what matters is that in two months it can tell you where you&#x27;re getting stuck. finding roles">
+  <div class="mod-head">
+    <div class="mod-num">2.3</div>
+    <div>
+      <div class="mod-phase">Finding roles</div>
+      <h2>Keep track</h2>
+    </div>
+  </div>
+  <p class="lede">A spreadsheet is enough. What matters is that in two months it can tell you where you&#x27;re getting stuck.</p>
+  <div class="block why"><span class="why-tag">Why it matters</span><p><strong>A tracker earns its keep the week you start asking why nothing is working.</strong> One that only records company, role and date can't answer that. One that also records how far you got, and whether you contacted anyone, usually can.</p></div>
+  <div class="block"><h4>How to do it</h4><ol>
+<li><strong>One sheet, one row per role.</strong> Company, role, location, your rating, salary if published, status, date applied, whether you contacted anyone, how far you got, notes, link.</li>
+<li><strong>Three of those columns do the diagnostic work:</strong> how far you got, whether you contacted anyone, and your own rating. If you drop anything, keep those.</li>
+<li><strong>Keep the statuses simple:</strong> to apply, applied, interviewing, closed. Colour them, because colour is what makes it readable at a glance.</li>
+<li><strong>Record how far you got</strong> on everything that ends. This is the column that tells you which problem you have.</li>
+<li><strong>Record outreach honestly</strong>, including the messages that got no reply.</li>
+<li><strong>Look at it once a week and ask where things are stopping.</strong> No response at all points at your materials, your targeting or a location filter. Screening calls that go nowhere point at positioning and the predictable questions. Late rounds lost point at delivery and self-advocacy. These need completely different fixes, and treating one as another wastes months.</li>
+</ol></div>
+  <div class="block"><h4>Done when</h4><ul class="checklist"><li><label><input type="checkbox"><span>One sheet, one row per role, statuses coloured</span></label></li><li><label><input type="checkbox"><span>How far you got recorded for everything closed</span></label></li><li><label><input type="checkbox"><span>Outreach recorded, silences included</span></label></li><li><label><input type="checkbox"><span>A weekly look that asks where things are stopping</span></label></li></ul></div>
+  <div class="block traps"><h4>Where this goes wrong</h4><p><strong>Recording applications but not conversations.</strong> You lose the ability to notice that the channel you've neglected is the one that would have worked.</p>
+<p><strong>Making it beautiful.</strong> It's an instrument, not a deliverable.</p></div>
+  <div class="mod-foot"><a href="#top">Back to top</a></div>
+</section>
+<section class="module" id="read-posting" style="--accent:#B4713D" data-phase="Applying" data-search="read the posting properly ten minutes before you touch your resume. it gives you the words to use, the things to lead with, and a decision you&#x27;ve actually made rather than drifted into. applying">
+  <div class="mod-head">
+    <div class="mod-num">3.1</div>
+    <div>
+      <div class="mod-phase">Applying</div>
+      <h2>Read the posting properly</h2>
+    </div>
+  </div>
+  <p class="lede">Ten minutes before you touch your resume. It gives you the words to use, the things to lead with, and a decision you&#x27;ve actually made rather than drifted into.</p>
+  <div class="block why"><span class="why-tag">Why it matters</span><p>Tailoring without reading the posting closely is guesswork about what to emphasise. <strong>Reading it closely takes ten minutes and saves more than that in the next step.</strong></p></div>
+  <div class="block"><h4>How to do it</h4><ol>
+<li><strong>Pull out their exact language.</strong> The words and phrases they use, grouped roughly by theme. Use theirs rather than your preferred synonyms. If they say "capability building", don't write "skills development" and hope someone makes the connection.</li>
+<li><strong>Work out what the job actually does all day.</strong> Strategy or delivery, design or execution, managing stakeholders or building things. One sentence. It decides which of your bullets go first.</li>
+<li><strong>Note what looks good to you.</strong> Not to anyone else. Pull these straight from your brief: the scope, ownership, methods, mission or working pattern you said mattered. Two people can read the same posting and find opposite things encouraging, and that's fine.</li>
+<li><strong>Note what gives you pause.</strong> Again, yours. Something that reads as a warning sign to one person is the exact job someone else wants. The useful move is to write down what specifically bothers you and turn it into a question you'll ask if you get an interview.</li>
+<li><strong>Write your decision down.</strong> Worth real effort, worth applying, or not for you, with a line of reasoning. A decision you have to write is harder to fudge than one you keep in your head.</li>
+</ol></div>
+  <div class="block"><h4>Done when</h4><ul class="checklist"><li><label><input type="checkbox"><span>Their vocabulary extracted in their words</span></label></li><li><label><input type="checkbox"><span>What the job does all day, in one sentence</span></label></li><li><label><input type="checkbox"><span>Encouraging and concerning signals drawn from your own criteria</span></label></li><li><label><input type="checkbox"><span>Concerns converted into interview questions</span></label></li><li><label><input type="checkbox"><span>A written decision before any drafting</span></label></li></ul></div>
+  <div class="block traps"><h4>Where this goes wrong</h4><p><strong>Skipping this for roles you badly want.</strong> Wanting something isn't the same as having read it.</p>
+<p><strong>Treating every requirement as equal.</strong> The order tells you a lot about what they actually care about.</p></div>
+  <div class="mod-foot"><a href="#top">Back to top</a></div>
+</section>
+<section class="module" id="tailoring" style="--accent:#B4713D" data-phase="Applying" data-search="tailor the resume choosing, not writing. you&#x27;re picking from your master resume, reordering for someone who&#x27;ll spend seconds on it, and using their words. fifteen minutes, not an hour. applying">
+  <div class="mod-head">
+    <div class="mod-num">3.2</div>
+    <div>
+      <div class="mod-phase">Applying</div>
+      <h2>Tailor the resume</h2>
+    </div>
+  </div>
+  <p class="lede">Choosing, not writing. You&#x27;re picking from your master resume, reordering for someone who&#x27;ll spend seconds on it, and using their words. Fifteen minutes, not an hour.</p>
+  <div class="block why"><span class="why-tag">Why it matters</span><p>Resumes get skimmed, then scanned, then read. The skim takes a couple of seconds and looks at titles, employers and dates down the left. The scan hunts for particular words. <strong>Only what survives both gets read properly.</strong> <strong>Order and vocabulary do most of the work here</strong>, and prose quality does less than you'd think.</p>
+<p>You can't have one resume that's uniquely right for every job you apply to, and you can't spend an hour on each and keep going. <strong>Having a master resume is what lets both be true.</strong></p></div>
+  <div class="block"><h4>How to do it</h4><ol>
+<li><strong>Put the title you're applying for at the top.</strong> It confirms in one second what kind of candidate you are, which matters most when your own titles are unusual or undersell the work.</li>
+<li><strong>Rewrite the summary for this role.</strong> Three or four lines, using their language. If you tailor nothing else, tailor the title and the summary, because both sit in the part of the page people actually read.</li>
+<li><strong>Reorder your bullets.</strong> The first one under each role should be the most relevant to this posting, not the most impressive in general. People read downwards and stop early.</li>
+<li><strong>Turn entries on and off from the master.</strong> Density of relevant material beats completeness.</li>
+<li><strong>Make the match explicit.</strong> If they ask for cross-functional delivery, a line saying you worked with other departments doesn't prove it. Naming the departments, the thing delivered and how it landed does.</li>
+<li><strong>Cut the skills line down to this posting.</strong> Fifteen or twenty terms is plenty.</li>
+<li><strong>Two pages is fine.</strong> The one-page rule is about being brief and legible. Shrinking to six-point type to obey it defeats the point.</li>
+<li><strong>Check the exported file.</strong> If you can select the text, a machine can read it.</li>
+</ol></div>
+  <div class="block"><h4>Done when</h4><ul class="checklist"><li><label><input type="checkbox"><span>Target title and a summary written for this role</span></label></li><li><label><input type="checkbox"><span>First bullet under each role is the most relevant one here</span></label></li><li><label><input type="checkbox"><span>Their vocabulary used, not paraphrased</span></label></li><li><label><input type="checkbox"><span>Everything traceable to something you did</span></label></li><li><label><input type="checkbox"><span>Selectable text in the exported file</span></label></li><li><label><input type="checkbox"><span>Closer to fifteen minutes than an hour</span></label></li></ul></div>
+  <div class="block traps"><h4>Where this goes wrong</h4><p><strong>Perfectionism.</strong> The fourth revision rarely changes anything. Applying two weeks earlier sometimes does.</p>
+<p><strong>Bullets you can't defend.</strong> Everything on the page is a question someone might ask you.</p></div>
+  <div class="mod-foot"><a href="#top">Back to top</a></div>
+</section>
+<section class="module" id="message" style="--accent:#B4713D" data-phase="Applying" data-search="the application message for “why are you interested” boxes and short notes to recruiters. around 200 words, and it should sound like you. applying">
+  <div class="mod-head">
+    <div class="mod-num">3.3</div>
+    <div>
+      <div class="mod-phase">Applying</div>
+      <h2>The application message</h2>
+    </div>
+  </div>
+  <p class="lede">For “why are you interested” boxes and short notes to recruiters. Around 200 words, and it should sound like you.</p>
+  <div class="block why"><span class="why-tag">Why it matters</span><p>These usually fail the same way, by restating the resume in sentences. <strong>The reader already has the resume.</strong> What the box is asking for is the part that isn't on it: <strong>why you, why here, and what you're like</strong>.</p></div>
+  <div class="block"><h4>How to do it</h4><ol>
+<li><strong>Draft a straightforward version first</strong>, based on what the role needs and what you've done that maps onto it.</li>
+<li><strong>Then answer three questions out loud</strong>, without editing yourself. What's something from your work you're actually proud of, in human terms rather than metrics? What draws you to this organisation that wouldn't be true of its competitor? How would a colleague describe working with you?</li>
+<li><strong>Rewrite using how you said it</strong>, not just what you said. The phrasing is the part that reads as a person.</li>
+<li><strong>Keep it to 150 to 250 words</strong> and open with a reason rather than a summary of yourself.</li>
+<li><strong>Delete any sentence that would be equally true of another employer.</strong> If very little survives, you're not ready to send it.</li>
+</ol></div>
+  <div class="block"><h4>Done when</h4><ul class="checklist"><li><label><input type="checkbox"><span>Opens with a reason, not a recap of your resume</span></label></li><li><label><input type="checkbox"><span>Contains something only you would have written</span></label></li><li><label><input type="checkbox"><span>Nothing in it could be pasted into another application</span></label></li><li><label><input type="checkbox"><span>150 to 250 words</span></label></li></ul></div>
+  <div class="block traps"><h4>Where this goes wrong</h4><p><strong>Having an AI write the whole thing.</strong> The output is fluent, generic, and increasingly obvious to people reading dozens a week.</p>
+<p><strong>Praising the mission with no evidence you've engaged with it.</strong></p></div>
+  <div class="mod-foot"><a href="#top">Back to top</a></div>
+</section>
+<section class="module" id="weak-ties" style="--accent:#A05070" data-phase="People" data-search="the people who help are the ones you barely know not your close colleagues. the people you know slightly. that comes from a five-year randomised experiment rather than from networking folklore. people">
+  <div class="mod-head">
+    <div class="mod-num">4.1</div>
+    <div>
+      <div class="mod-phase">People</div>
+      <h2>The people who help are the ones you barely know</h2>
+    </div>
+  </div>
+  <p class="lede">Not your close colleagues. The people you know slightly. That comes from a five-year randomised experiment rather than from networking folklore.</p>
+  <div class="block why"><span class="why-tag">Why it matters</span><p>Researchers ran an experiment on LinkedIn across roughly 20 million people, producing about 600,000 job moves, and tested whether weak connections really do help more than strong ones. They do, with a wrinkle: <strong>the relationship is a curve rather than a straight line</strong>. Very weak ties aren't the most useful. <strong>Moderately weak ones are.</strong> The effect was strongest in digital and remote-friendly industries.</p>
+<p><strong>The reason is information.</strong> People close to you know roughly what you know and move in the same rooms. Someone you worked with briefly four years ago sits in a different flow of information, which is where unlisted roles and honest reads on a company tend to come from.</p></div>
+  <div class="block"><h4>How to do it</h4><ol>
+<li><strong>Write down thirty people you know slightly.</strong> Former colleagues from two or three jobs back, people from training courses and conferences, ex-clients, people you've exchanged messages with online. Not your closest friends, and not strangers.</li>
+<li><strong>Sort them by how close they sit to the employers you want.</strong></li>
+<li><strong>Get back in touch before you need anything.</strong> Something specific about their work, a line about what you're up to, genuine interest. Eighty words. No ask.</li>
+<li><strong>When you do ask, ask something answerable.</strong> "Do you know anyone at this company?" or "How does this function actually sit in your organisation?" will get a reply. "Let me know if you hear of anything" asks them to do the thinking, and mostly goes unanswered.</li>
+<li><strong>Five to eight real conversations a week</strong> is a pace you can hold. Fifty isn't, and the quality falls apart.</li>
+<li><strong>Tell people what came of it.</strong> It's the cheapest way to become someone people help a second time.</li>
+</ol></div>
+  <div class="block"><h4>Done when</h4><ul class="checklist"><li><label><input type="checkbox"><span>Thirty named people, sorted by closeness to your targets</span></label></li><li><label><input type="checkbox"><span>Reconnections sent with nothing attached</span></label></li><li><label><input type="checkbox"><span>Asks that can be answered in one message</span></label></li><li><label><input type="checkbox"><span>A pace you can hold for months</span></label></li><li><label><input type="checkbox"><span>Loops closed with everyone who helped</span></label></li></ul></div>
+  <div class="block traps"><h4>Where this goes wrong</h4><p><strong>"Let me know if you hear of anything."</strong> Almost nobody acts on this, because it isn't a question.</p>
+<p><strong>Only contacting people when you need them.</strong> It's obvious from the outside, and it burns the connection for next time.</p>
+<p><strong>Staying inside your close circle</strong> because it feels safer. That's the group the research says helps least.</p></div>
+  <div class="mod-foot"><a href="#top">Back to top</a></div>
+</section>
+<section class="module" id="informational" style="--accent:#A05070" data-phase="People" data-search="informational interviews twenty to thirty minutes with someone doing the work you&#x27;re considering. you&#x27;re researching, not auditioning, and the moment it turns into a job pitch it stops working. people">
+  <div class="mod-head">
+    <div class="mod-num">4.2</div>
+    <div>
+      <div class="mod-phase">People</div>
+      <h2>Informational interviews</h2>
+    </div>
+  </div>
+  <p class="lede">Twenty to thirty minutes with someone doing the work you&#x27;re considering. You&#x27;re researching, not auditioning, and the moment it turns into a job pitch it stops working.</p>
+  <div class="block why"><span class="why-tag">Why it matters</span><p>You learn things here that no posting will tell you: what the work is actually like, what the organisation is really like, what the person wishes they'd known. The relationship is a by-product, and a fairly reliable one, because <strong>people remember someone who asked good questions and wanted nothing</strong>.</p>
+<p>If you're considering a change of direction, <strong>five of these will teach you more than five weeks of thinking about it</strong>.</p></div>
+  <div class="block"><h4>How to do it</h4><ol>
+<li><strong>Pick people, not job titles.</strong> Someone doing the work, someone a level above it, and someone who left it. The third is usually the most informative and the least contacted.</li>
+<li><strong>Ask clearly and small.</strong> Say why you're getting in touch, what you're exploring, and ask for twenty to thirty minutes at whatever time suits them. Under a hundred words. Short messages get answered.</li>
+<li><strong>Prepare five or six questions and hold them loosely.</strong> How did you get into this, and is that typical? What does an ordinary week look like? What separates people who do this well? What surprised you? What would you want to know if you were me?</li>
+<li><strong>Don't ask for a job.</strong> If they raise an opening, follow it. If they don't, leave it alone.</li>
+<li><strong>Close with two questions.</strong> Is there anything I should be reading, and is there anyone else I should talk to. The second one is how a conversation becomes a network.</li>
+<li><strong>Say thank you within a day</strong>, referring to something specific they said. Then tell them later if their advice led somewhere. Almost nobody does this, and it's where most of the value ends up.</li>
+</ol></div>
+  <div class="block"><h4>Done when</h4><ul class="checklist"><li><label><input type="checkbox"><span>Talked to someone who left the role, not only people in it</span></label></li><li><label><input type="checkbox"><span>Asked for a specific, small amount of time</span></label></li><li><label><input type="checkbox"><span>Questions prepared, conversation allowed to wander</span></label></li><li><label><input type="checkbox"><span>No job ask made</span></label></li><li><label><input type="checkbox"><span>Asked who else to talk to</span></label></li><li><label><input type="checkbox"><span>Thank-you sent within a day</span></label></li></ul></div>
+  <div class="block traps"><h4>Where this goes wrong</h4><p><strong>Turning it into a pitch.</strong> People feel the switch immediately and the conversation closes over.</p>
+<p><strong>Asking things the website answers.</strong> It wastes the part of the call you can't get anywhere else.</p></div>
+  <div class="mod-foot"><a href="#top">Back to top</a></div>
+</section>
+<section class="module" id="outreach" style="--accent:#A05070" data-phase="People" data-search="recruiters, hiring managers and referrals short messages to named people, sent around the time you apply. uncomfortable, cheap, and it puts a person next to a row in a database. people">
+  <div class="mod-head">
+    <div class="mod-num">4.3</div>
+    <div>
+      <div class="mod-phase">People</div>
+      <h2>Recruiters, hiring managers and referrals</h2>
+    </div>
+  </div>
+  <p class="lede">Short messages to named people, sent around the time you apply. Uncomfortable, cheap, and it puts a person next to a row in a database.</p>
+  <div class="block why"><span class="why-tag">Why it matters</span><p><strong>Applications go into a queue. Messages go to someone.</strong> The message doesn't have to be good, it has to be short, specific and obviously not a template.</p>
+<p>A referral does something slightly different: <strong>it gets your application read</strong>. That's most of its value, and it doesn't need to come from anyone senior.</p></div>
+  <div class="block"><h4>How to do it</h4><ol>
+<li><strong>Find two people.</strong> The recruiter named on the posting or visible in the talent team, and whoever the role probably reports to. The posting's language usually gives away the second.</li>
+<li><strong>Write four sentences.</strong> Who you are, the one thing in your background that meets their hardest requirement, one specific thing about their team or work, and an easy close. Under 120 words.</li>
+<li><strong>Write the two versions differently.</strong> The recruiter cares about whether you clear the bar. The hiring manager cares about what you'd take off their plate. They talk to each other.</li>
+<li><strong>Don't attach anything</strong> unless you're asked to. It reads as a mass send.</li>
+<li><strong>Follow up once</strong>, a week or so later, adding something new rather than repeating yourself. Then stop.</li>
+<li><strong>For referrals, do the work for them.</strong> Send the link, two or three sentences they can paste, and a genuine way to say no without it being awkward. Be honest about how well they know you rather than overstating it. If the connection is too thin for a referral, ask them something else instead.</li>
+<li><strong>Use the company's referral route</strong> rather than applying separately and asking someone to chase it.</li>
+<li><strong>Tell whoever helped what happened.</strong> People who never hear the outcome don't help twice.</li>
+</ol></div>
+  <div class="block"><h4>Done when</h4><ul class="checklist"><li><label><input type="checkbox"><span>Two named people identified</span></label></li><li><label><input type="checkbox"><span>Messages sent within a couple of days of applying</span></label></li><li><label><input type="checkbox"><span>Four sentences, specific, different from each other</span></label></li><li><label><input type="checkbox"><span>One follow-up only, adding something</span></label></li><li><label><input type="checkbox"><span>Referral asks include paste-ready text and a real way to decline</span></label></li></ul></div>
+  <div class="block traps"><h4>Where this goes wrong</h4><p><strong>Sending the same message to both people.</strong></p>
+<p><strong>Following up four times.</strong> After the second message it reads as pressure.</p>
+<p><strong>Asking a near-stranger for a referral.</strong> It puts them somewhere uncomfortable and rarely produces a real one.</p></div>
+  <div class="mod-foot"><a href="#top">Back to top</a></div>
+</section>
+<section class="module" id="prep" style="--accent:#4A7BA7" data-phase="Interviews" data-search="preparing early, out loud, and tested by someone else. most preparation is late, silent and unexamined, which is a scheduling problem more than an effort one. interviews">
+  <div class="mod-head">
+    <div class="mod-num">5.1</div>
+    <div>
+      <div class="mod-phase">Interviews</div>
+      <h2>Preparing</h2>
+    </div>
+  </div>
+  <p class="lede">Early, out loud, and tested by someone else. Most preparation is late, silent and unexamined, which is a scheduling problem more than an effort one.</p>
+  <div class="block why"><span class="why-tag">Why it matters</span><p>Work done the night before is done tired. Work done alone is never tested. Work read silently is never timed, so you find out in the room that your answer runs four minutes. <strong>None of these are about how hard you're trying.</strong></p></div>
+  <div class="block"><h4>How to do it</h4><ol>
+<li><strong>Book the preparation when you book the interview</strong>, as two or three short sessions across the week rather than one long evening.</li>
+<li><strong>Write and rehearse the predictable answers.</strong> Your introduction, a weakness, a failure, a disagreement with a colleague, feedback that was hard to hear, why this role. These come up constantly and there's no reason to meet them cold.</li>
+<li><strong>Read the company properly.</strong> Recent news, how they make money, what's changing, what the role probably exists to fix.</li>
+<li><strong>Look up who you're meeting.</strong> Their background tells you what they'll care about and what will go over their head.</li>
+<li><strong>Do one run-through out loud, against a clock, in front of someone who'll be honest</strong>, several days ahead rather than the night before. Reading your notes builds familiarity. Speaking builds fluency, and only speaking shows you how long you actually take.</li>
+<li><strong>Prepare your own questions</strong>, and make them ones the website can't answer.</li>
+</ol></div>
+  <div class="block"><h4>Done when</h4><ul class="checklist"><li><label><input type="checkbox"><span>Preparation booked in short sessions from the day it was scheduled</span></label></li><li><label><input type="checkbox"><span>Predictable answers written and rehearsed</span></label></li><li><label><input type="checkbox"><span>Company researched beyond the careers page</span></label></li><li><label><input type="checkbox"><span>Everyone you&#x27;re meeting looked up</span></label></li><li><label><input type="checkbox"><span>One timed run-through out loud, with a listener, days ahead</span></label></li><li><label><input type="checkbox"><span>Your own questions ready</span></label></li></ul></div>
+  <div class="block traps"><h4>Where this goes wrong</h4><p><strong>Being caught by the weakness question.</strong> It's one of the most predictable questions there is and it's answerable in advance.</p>
+<p><strong>Preparing silently.</strong> You'll discover the length problem in the room.</p></div>
+  <div class="mod-foot"><a href="#top">Back to top</a></div>
+</section>
+<section class="module" id="stories" style="--accent:#4A7BA7" data-phase="Interviews" data-search="your stories, and the star structure six well-built stories will answer most behavioural questions. thirty half-built ones answer none, because you can&#x27;t retrieve any of them under pressure. interviews">
+  <div class="mod-head">
+    <div class="mod-num">5.2</div>
+    <div>
+      <div class="mod-phase">Interviews</div>
+      <h2>Your stories, and the STAR structure</h2>
+    </div>
+  </div>
+  <p class="lede">Six well-built stories will answer most behavioural questions. Thirty half-built ones answer none, because you can&#x27;t retrieve any of them under pressure.</p>
+  <div class="block why"><span class="why-tag">Why it matters</span><p>Behavioural interviews ask you to describe things you've actually done, on the theory that past behaviour predicts future behaviour better than opinions do. The standard structure for answering is <strong>STAR</strong>: <strong>S</strong>ituation, <strong>T</strong>ask, <strong>A</strong>ction, <strong>R</strong>esult. It's used widely enough that many interviewers are scoring against it, and it's a useful discipline in any case, because it forces you to say what you personally did and how it turned out.</p>
+<p><strong>The skill worth building is reshaping.</strong> One story about a stalled project can answer questions about conflict, influence, failure, stakeholders or resilience depending on which part you bring forward, but only if you know it well enough to move the emphasis around.</p></div>
+  <div class="block"><h4>How to do it</h4><ol>
+<li><strong>Pick six stories with range.</strong> A clear success with a number attached, a real failure, a disagreement you handled, something you got done without authority, something you built from nothing, and a time you changed your mind.</li>
+<li><strong>Write each one in four parts.</strong> Situation in two sentences. Task, meaning what was on you specifically. Action, in the first person singular, three or four steps. Result, with a number if one exists and an honest outcome if not.</li>
+<li><strong>Say "I" for the actions.</strong> "We redesigned the process" tells an interviewer nothing about you. It's the most common way a good story stops working.</li>
+<li><strong>Rehearse each to about two minutes</strong>, out loud, timed.</li>
+<li><strong>Map each story to the questions it can cover.</strong> One story should stretch to three or four.</li>
+<li><strong>Make the failure story a real failure.</strong> A real cost, and a specific thing you do differently now. Failures that are secretly successes are obvious, and they cost you credibility on everything else you've said.</li>
+<li><strong>Keep a note after each interview</strong> of what you were asked and how it landed, and feed it back in.</li>
+</ol></div>
+  <div class="block"><h4>Done when</h4><ul class="checklist"><li><label><input type="checkbox"><span>Six stories covering genuinely different ground</span></label></li><li><label><input type="checkbox"><span>Each structured as situation, task, action, result</span></label></li><li><label><input type="checkbox"><span>First person singular throughout the action</span></label></li><li><label><input type="checkbox"><span>Each rehearsed out loud to around two minutes</span></label></li><li><label><input type="checkbox"><span>Each mapped to several possible questions</span></label></li><li><label><input type="checkbox"><span>A failure story that is actually a failure</span></label></li></ul></div>
+  <div class="block traps"><h4>Where this goes wrong</h4><p><strong>Saying "we" throughout.</strong> Interviewers can't assess a team.</p>
+<p><strong>Stories without an ending.</strong> If you can't say what happened, it isn't an answer.</p></div>
+  <div class="mod-foot"><a href="#top">Back to top</a></div>
+</section>
+<section class="module" id="case-study" style="--accent:#4A7BA7" data-phase="Interviews" data-search="case studies and presentations a brief, a deadline, and a room. what&#x27;s being assessed is how you think and how you land it, more than whether you arrive at one particular answer. interviews">
+  <div class="mod-head">
+    <div class="mod-num">5.3</div>
+    <div>
+      <div class="mod-phase">Interviews</div>
+      <h2>Case studies and presentations</h2>
+    </div>
+  </div>
+  <p class="lede">A brief, a deadline, and a room. What&#x27;s being assessed is how you think and how you land it, more than whether you arrive at one particular answer.</p>
+  <div class="block why"><span class="why-tag">Why it matters</span><p>These rounds exist because a conversation can't show how someone handles an open problem. <strong>The panel is watching you scope something, decide what matters, back a view, and stay coherent under questioning.</strong></p>
+<p>The main constraint is time. A brief that would take a team a month is being answered in thirty minutes, <strong>which makes choosing what to leave out part of the exercise</strong>.</p></div>
+  <div class="block"><h4>How to do it</h4><ol>
+<li><strong>Clarify the brief before you build anything.</strong> Ask the recruiter about the format, how long you have, who'll be in the room, whether they want slides, and how much of it is presentation versus discussion. These questions are welcome, and the answers change what you make.</li>
+<li><strong>Decide what you're going deep on, and say so.</strong> "There's a lot in this brief, so I've gone deep on two things and I'll touch the rest briefly" tells the room you prioritised rather than ran out of time.</li>
+<li><strong>Put the answer near the front.</strong> What you'd do, why, and roughly in what order. People follow an argument better when they know where it's going, and if you run out of time you've already said the important part.</li>
+<li><strong>Say what you're assuming.</strong> You don't have the internal information they have. Naming an assumption out loud is more convincing than hedging, and it lets someone correct you cheaply.</li>
+<li><strong>Ground it in things you've actually seen work.</strong> A specific example from your experience does more than a framework, particularly with a mixed panel where not everyone shares your professional background.</li>
+<li><strong>Time it and cut.</strong> These almost always over-run. Leave real room for questions, because the discussion is often where the decision gets made.</li>
+<li><strong>Expect challenge and welcome it.</strong> Know the three or four hardest questions someone could put to you, and be willing to say "that's a fair point" and adjust. Holding a position and updating a position are both good signals. Refusing to do either isn't.</li>
+</ol></div>
+  <div class="block"><h4>Done when</h4><ul class="checklist"><li><label><input type="checkbox"><span>Format, timing and audience confirmed in advance</span></label></li><li><label><input type="checkbox"><span>A clear choice about what you covered deeply, stated in the room</span></label></li><li><label><input type="checkbox"><span>Your recommendation near the front</span></label></li><li><label><input type="checkbox"><span>Assumptions named out loud</span></label></li><li><label><input type="checkbox"><span>At least one concrete example from your own experience</span></label></li><li><label><input type="checkbox"><span>Timed, with room left for discussion</span></label></li></ul></div>
+  <div class="block traps"><h4>Where this goes wrong</h4><p><strong>Trying to cover the whole brief.</strong> There isn't time, and the attempt reads as an inability to prioritise.</p>
+<p><strong>Explaining your method instead of your answer.</strong> Method is worth showing underneath a recommendation rather than instead of one.</p>
+<p><strong>Building for a specialist audience</strong> when the room is mixed.</p></div>
+  <div class="mod-foot"><a href="#top">Back to top</a></div>
+</section>
+<section class="module" id="on-the-day" style="--accent:#4A7BA7" data-phase="Interviews" data-search="on the day things that are hard to fix by preparing more, and reasonably easy to practise. interviews">
+  <div class="mod-head">
+    <div class="mod-num">5.4</div>
+    <div>
+      <div class="mod-phase">Interviews</div>
+      <h2>On the day</h2>
+    </div>
+  </div>
+  <p class="lede">Things that are hard to fix by preparing more, and reasonably easy to practise.</p>
+  <div class="block why"><span class="why-tag">Why it matters</span><p>Interviews are conversations held under artificial conditions. <strong>Most of what goes wrong on the day is about length, honesty and attention rather than knowledge.</strong></p></div>
+  <div class="block"><h4>How to do it</h4><ol>
+<li><strong>Aim for about two minutes an answer.</strong> Make the point, give one example, stop. If they want more they'll ask, and the pause afterwards is theirs to fill rather than yours.</li>
+<li><strong>Watch for signs they have enough.</strong> Interviewers usually signal it before they say it. Finishing cleanly is better than continuing until someone interrupts.</li>
+<li><strong>Say when you don't know.</strong> "I haven't hit exactly that, but here's how I'd approach it" is more convincing than stretching a half-relevant example, and experienced interviewers can tell the difference. Taking a couple of seconds to think is fine, and worth saying out loud.</li>
+<li><strong>Listen to the whole question.</strong> Answering the question you expected rather than the one you were asked is common and very visible.</li>
+<li><strong>Adjust if something isn't working.</strong> If an answer clearly missed, say so and try again. Correcting yourself reads as responsiveness.</li>
+<li><strong>Ask your questions.</strong> What would make the first year a success, what's hardest about this role that isn't in the description, what's been tried before and didn't work.</li>
+<li><strong>Handle the basics.</strong> Test the link, have water, have a notebook, know who you're meeting, leave a buffer either side. Fatigue and logistics account for more bad interviews than anyone admits.</li>
+</ol></div>
+  <div class="block"><h4>Done when</h4><ul class="checklist"><li><label><input type="checkbox"><span>Answers landing around two minutes</span></label></li><li><label><input type="checkbox"><span>Comfortable saying you don&#x27;t know</span></label></li><li><label><input type="checkbox"><span>Listening to the whole question before answering</span></label></li><li><label><input type="checkbox"><span>Willing to correct yourself mid-conversation</span></label></li><li><label><input type="checkbox"><span>Your own questions asked</span></label></li></ul></div>
+  <div class="block traps"><h4>Where this goes wrong</h4><p><strong>Talking past the end of your answer.</strong> Usually a worry that it wasn't enough.</p>
+<p><strong>Deciding it's too late to change course.</strong> It isn't.</p></div>
+  <div class="mod-foot"><a href="#top">Back to top</a></div>
+</section>
+<section class="module" id="money" style="--accent:#4A7BA7" data-phase="Interviews" data-search="money and scope decide your numbers before the first call and say them when you&#x27;re asked. silence is generally taken as agreement. interviews">
+  <div class="mod-head">
+    <div class="mod-num">5.5</div>
+    <div>
+      <div class="mod-phase">Interviews</div>
+      <h2>Money and scope</h2>
+    </div>
+  </div>
+  <p class="lede">Decide your numbers before the first call and say them when you&#x27;re asked. Silence is generally taken as agreement.</p>
+  <div class="block why"><span class="why-tag">Why it matters</span><p>These conversations get put off precisely when things are going well. The recruiter is friendly, the process is moving, and raising a constraint feels like it might spoil something, so <strong>the number goes unchallenged</strong> and you carry on at a figure you've quietly stopped being pleased about.</p>
+<p><strong>Bands flex more often than candidates assume</strong>, and level is sometimes negotiable when the alternative is losing someone they've spent six weeks assessing. A warm, direct question costs very little.</p></div>
+  <div class="block"><h4>How to do it</h4><ol>
+<li><strong>Have three numbers before the first call.</strong> Your target, what would delight you, and the point below which you'd say no. Written down.</li>
+<li><strong>Find out the real range</strong> for this title, company size and location. Many places now publish ranges by law, so use those, including for comparable employers.</li>
+<li><strong>Give a range whose bottom you'd take.</strong> Being vague doesn't preserve leverage, it just hands the decision to them.</li>
+<li><strong>If their ceiling is below your floor, say so there and then.</strong> "That's below where I need to be, is there any flexibility, or should we be honest that this might not work?" No ultimatum, no apology. This is the sentence people skip.</li>
+<li><strong>Negotiate more than salary.</strong> Title, scope, team, budget, reporting line, start date, leave, flexibility, learning budget. Several of these move more easily than base pay and matter more over three years.</li>
+<li><strong>Get the offer in writing before you resign anything.</strong></li>
+</ol></div>
+  <div class="block"><h4>Done when</h4><ul class="checklist"><li><label><input type="checkbox"><span>Three numbers written down before the first call</span></label></li><li><label><input type="checkbox"><span>Market range researched for this title, size and location</span></label></li><li><label><input type="checkbox"><span>A range stated out loud whose bottom you&#x27;d accept</span></label></li><li><label><input type="checkbox"><span>The words ready if their ceiling is below your floor</span></label></li><li><label><input type="checkbox"><span>Scope and level treated as negotiable</span></label></li><li><label><input type="checkbox"><span>Offer in writing</span></label></li></ul></div>
+  <div class="block traps"><h4>Where this goes wrong</h4><p><strong>Letting a low number pass because the conversation is pleasant.</strong> It's generally heard as agreement.</p>
+<p><strong>Carrying on while quietly disengaging.</strong> It shows up in how you turn up for the rounds that follow.</p></div>
+  <div class="mod-foot"><a href="#top">Back to top</a></div>
+</section>
+<section class="module" id="debrief" style="--accent:#6B7A5A" data-phase="Learning" data-search="write it down afterwards within a day, before the memory turns into a verdict. a search produces a lot of evidence and very little learning, because almost nobody writes any of it down. learning">
+  <div class="mod-head">
+    <div class="mod-num">6.1</div>
+    <div>
+      <div class="mod-phase">Learning</div>
+      <h2>Write it down afterwards</h2>
+    </div>
+  </div>
+  <p class="lede">Within a day, before the memory turns into a verdict. A search produces a lot of evidence and very little learning, because almost nobody writes any of it down.</p>
+  <div class="block why"><span class="why-tag">Why it matters</span><p>Within a few days an interview compresses into "that went well" or "I made a mess of it", and <strong>everything usable disappears</strong>. The specific question that landed badly, the moment the room changed, the thing you wish you'd said. Twenty minutes while it's fresh keeps all of it.</p>
+<p><strong>Do it after the ones that go well too.</strong> Those tell you what to repeat.</p></div>
+  <div class="block"><h4>How to do it</h4><ol>
+<li><strong>Write four things.</strong> What you were asked. What you said. What you wish you'd said. What surprised you.</li>
+<li><strong>Separate what you said from how you said it.</strong> A weak answer and a good answer delivered badly are different problems, and the fix for one does nothing for the other.</li>
+<li><strong>Note anything they pushed on twice.</strong> If there's another round, going away and closing that specific gap is one of the most useful things you can do, and panels notice when someone has.</li>
+<li><strong>Ask for feedback when a process ends.</strong> "I'd welcome anything that would help me in future processes" gets more than asking why you didn't get it. Sometimes you'll get nothing, which is normal and not a comment on you.</li>
+<li><strong>Record how far you got.</strong> Over a few months that column tells you which part of your search needs work.</li>
+</ol></div>
+  <div class="block"><h4>Done when</h4><ul class="checklist"><li><label><input type="checkbox"><span>Written within a day</span></label></li><li><label><input type="checkbox"><span>Content problems separated from delivery problems</span></label></li><li><label><input type="checkbox"><span>Anything they probed twice noted</span></label></li><li><label><input type="checkbox"><span>Feedback requested at the close</span></label></li><li><label><input type="checkbox"><span>Stage reached recorded</span></label></li></ul></div>
+  <div class="block traps"><h4>Where this goes wrong</h4><p><strong>Only writing up the rejections.</strong> The ones that went well carry the instructions.</p>
+<p><strong>Writing a verdict instead of a record.</strong> "It went badly" is no use to you next month.</p></div>
+  <div class="mod-foot"><a href="#top">Back to top</a></div>
+</section>
+<section class="module" id="patterns" style="--accent:#6B7A5A" data-phase="Learning" data-search="find your own patterns a short document holding what your own processes have taught you. it&#x27;s the difference between ten interviews and the same interview ten times. learning">
+  <div class="mod-head">
+    <div class="mod-num">6.2</div>
+    <div>
+      <div class="mod-phase">Learning</div>
+      <h2>Find your own patterns</h2>
+    </div>
+  </div>
+  <p class="lede">A short document holding what your own processes have taught you. It&#x27;s the difference between ten interviews and the same interview ten times.</p>
+  <div class="block why"><span class="why-tag">Why it matters</span><p>Individual write-ups are raw material. What you want out of them is the small number of things that keep happening across different companies, panels and roles. <strong>Those are specific to you</strong>, and they're the actual curriculum of your search.</p>
+<p>This matters more than it might sound. General advice about interview mistakes is easy to agree with and hard to act on. Something you've watched yourself do three times, described in your own words, is much harder to ignore, and it's what you'll actually check before the next round. <strong>Most people are carrying three or four of these at most.</strong></p></div>
+  <div class="block"><h4>How to do it</h4><ol>
+<li><strong>After a process ends, move anything that would happen again</strong> from the write-up into this document. Most of a debrief is specific to that day and stays there.</li>
+<li><strong>Group it by situation.</strong> Screening calls, behavioural rounds, presentations, panels, money conversations. Then you can read only the relevant part before an interview.</li>
+<li><strong>Name each pattern in your own words, and count how often it's appeared.</strong> The count is what gives it weight. Your phrasing is what makes it stick.</li>
+<li><strong>Keep a section for what works.</strong> Things that got praised are worth using deliberately rather than by accident.</li>
+<li><strong>Read the relevant section before every interview.</strong> That's the whole mechanism. A document nobody rereads is a diary.</li>
+</ol></div>
+  <div class="block"><h4>Done when</h4><ul class="checklist"><li><label><input type="checkbox"><span>One document, updated when a process ends</span></label></li><li><label><input type="checkbox"><span>Grouped by situation so you can read part of it</span></label></li><li><label><input type="checkbox"><span>Patterns named in your words, with a count</span></label></li><li><label><input type="checkbox"><span>A section on what works, not only what doesn&#x27;t</span></label></li><li><label><input type="checkbox"><span>Actually reread before interviews</span></label></li></ul></div>
+  <div class="block traps"><h4>Where this goes wrong</h4><p><strong>Putting everything in it.</strong> Only move across what would happen again somewhere else.</p>
+<p><strong>Borrowing someone else's patterns.</strong> Advice from a book or a guide is a hypothesis to check against your own record. Yours are the ones your write-ups keep producing.</p></div>
+  <div class="mod-foot"><a href="#top">Back to top</a></div>
+</section>
+<section class="module" id="building" style="--accent:#6B7A5A" data-phase="Learning" data-search="keep building something applications and waiting is a bad diet. one small thing you&#x27;re making gives you somewhere for effort to go that doesn&#x27;t depend on anyone else&#x27;s decision. learning">
+  <div class="mod-head">
+    <div class="mod-num">6.3</div>
+    <div>
+      <div class="mod-phase">Learning</div>
+      <h2>Keep building something</h2>
+    </div>
+  </div>
+  <p class="lede">Applications and waiting is a bad diet. One small thing you&#x27;re making gives you somewhere for effort to go that doesn&#x27;t depend on anyone else&#x27;s decision.</p>
+  <div class="block why"><span class="why-tag">Why it matters</span><p>Your applications generate a precise list of things employers keep asking for that you can't currently claim. <strong>That's a better curriculum than any general advice about upskilling.</strong></p>
+<p>There's a second reason, which is that a search made only of applications and silence wears people down quickly. Something you're building is <strong>the part of the week where effort reliably produces a result</strong>.</p></div>
+  <div class="block"><h4>How to do it</h4><ol>
+<li><strong>Look back at the last ten postings you wanted</strong> and find the requirements you couldn't claim. Two or three will keep recurring.</li>
+<li><strong>Separate can't-do from can't-prove.</strong> Some gaps are real capability. Others are things you can do but have no evidence for, which is a much cheaper problem to solve.</li>
+<li><strong>Build the smallest thing that would close the gap.</strong> Something made rather than something consumed: a prototype, a written analysis, a small piece of freelance or volunteer work. Under twenty hours. Something you could be questioned about.</li>
+<li><strong>Put it somewhere people can see it.</strong> Work nobody can find doesn't change how you're read.</li>
+<li><strong>Feed it back into your resume, profile and stories.</strong> A new capability that never reaches your materials doesn't exist to anyone assessing you.</li>
+<li><strong>Stay in circulation.</strong> Communities, meetups, conferences. They give you knowledge, loose connections, and the feeling of still being a practitioner rather than a candidate.</li>
+</ol></div>
+  <div class="block"><h4>Done when</h4><ul class="checklist"><li><label><input type="checkbox"><span>Gaps taken from real postings, not from a general sense of not being enough</span></label></li><li><label><input type="checkbox"><span>Can&#x27;t-do separated from can&#x27;t-prove</span></label></li><li><label><input type="checkbox"><span>One small thing at a time, under twenty hours</span></label></li><li><label><input type="checkbox"><span>Visible somewhere</span></label></li><li><label><input type="checkbox"><span>Reflected back into your materials</span></label></li></ul></div>
+  <div class="block traps"><h4>Where this goes wrong</h4><p><strong>Collecting courses.</strong> One small thing you made is stronger evidence than a stack of certificates.</p>
+<p><strong>Using it to avoid applying.</strong> Learning feels productive and carries no risk of rejection. Watch the ratio.</p></div>
+  <div class="mod-foot"><a href="#top">Back to top</a></div>
+</section>
+
+<div id="empty" class="hidden">Nothing matches that. Try a broader term.</div>
+
+<footer>
+  <p>The findings on network ties come from <a href="https://www.science.org/doi/10.1126/science.abl4476" target="_blank" rel="noopener">Rajkumar, Saint-Jacques, Bojinov, Brynjolfsson and Aral, <em>A causal test of the strength of weak ties</em></a>, Science, 2022. Those on search quality and duration come from <a href="https://carlsonschool.umn.edu/sites/carlsonschool.umn.edu/files/2021-06/VanHooftKammeyerMuellerWanbergKanferBasbug_JAP%202021.pdf" target="_blank" rel="noopener">Van Hooft, Kammeyer-Mueller, Wanberg, Kanfer and Basbug, <em>Job search and employment success</em></a>, Journal of Applied Psychology, 2021.</p>
+  <p>Version 1 · August 2026</p>
+</footer>
+</main>
+<script>
+(function(){
+  var f = document.getElementById('filter');
+  var mods = Array.prototype.slice.call(document.querySelectorAll('.module'));
+  var bar = document.querySelector('.topbar');
+  var empty = document.getElementById('empty');
+
+  if(f){
+    f.addEventListener('input', function(){
+      var q = f.value.trim().toLowerCase(), n = 0;
+      mods.forEach(function(m){
+        var hit = !q || m.dataset.search.indexOf(q) > -1 || m.innerText.toLowerCase().indexOf(q) > -1;
+        m.classList.toggle('hidden', !hit);
+        if(hit) n++;
+      });
+      if(empty) empty.classList.toggle('hidden', n > 0);
+      document.querySelectorAll('.phases,.panel,header.hero,.intro').forEach(function(e){
+        e.classList.toggle('hidden', !!q);
+      });
+    });
+  }
+
+  var tbItems = Array.prototype.slice.call(document.querySelectorAll('.tb-item'));
+  function markPhase(name){
+    tbItems.forEach(function(i){ i.classList.toggle('on', i.dataset.phase === name); });
+  }
+  function closeMenus(){ tbItems.forEach(function(i){ i.classList.remove('open'); }); }
+
+  // Without hover there is nothing to reveal the module list, so a tap opens
+  // the menu instead of jumping. A second tap on an entry navigates.
+  var canHover = window.matchMedia && window.matchMedia('(hover:hover)').matches;
+  tbItems.forEach(function(item){
+    item.querySelector('.tb-link').addEventListener('click', function(ev){
+      if(canHover) return;
+      ev.preventDefault(); ev.stopPropagation();
+      var open = item.classList.contains('open');
+      closeMenus();
+      if(!open) item.classList.add('open');
+    });
+  });
+  document.addEventListener('click', closeMenus, false);
+  document.addEventListener('keydown', function(ev){ if(ev.key === 'Escape') closeMenus(); }, false);
+  if('IntersectionObserver' in window){
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting) markPhase(e.target.dataset.phase);
+      });
+    }, {rootMargin:'-14% 0px -75% 0px', threshold:0});
+    mods.forEach(function(m){ obs.observe(m); });
+  }
+
+  // Scroll without changing the URL, offset for the sticky bar. Some embedded
+  // viewers treat a hash navigation as a page load and blank the frame.
+  function barH(){ return (bar ? bar.offsetHeight : 53) + 13; }
+  function setBarVar(){
+    if(bar) document.documentElement.style.setProperty('--bar', (bar.offsetHeight + 4) + 'px');
+  }
+  setBarVar();
+  window.addEventListener('resize', setBarVar, false);
+  document.addEventListener('click', function(ev){
+    var a = ev.target.closest ? ev.target.closest('a[href^="#"]') : null;
+    if(!a) return;
+    var id = a.getAttribute('href').slice(1);
+    ev.preventDefault();
+    if(!id || id === 'top'){
+      try { window.scrollTo({top:0, behavior:'smooth'}); } catch(e){ window.scrollTo(0,0); }
+      return;
+    }
+    var el = document.getElementById(id);
+    if(!el) return;
+    var y = el.getBoundingClientRect().top + window.pageYOffset - barH();
+    try { window.scrollTo({top:y, behavior:'smooth'}); } catch(e){ window.scrollTo(0,y); }
+    if(a.blur) a.blur();
+  }, false);
+})();
+</script>
+</body>
+</html>
